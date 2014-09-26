@@ -33,7 +33,7 @@ end
 
 logger = Logger.new(STDOUT)
 client = Octokit::Client.new
-last_release_id = most_recent_release(client).id-1
+last_release_id = most_recent_release(client).id
 
 logger.debug "Started polling for new releases from #{REPOSITORY}"
 
