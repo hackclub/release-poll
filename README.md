@@ -4,6 +4,28 @@ This projects polls a repository on GitHub and sends an email to the specified
 recipients when a new release is created. Useful for quickly updating packages
 that you're the maintainer for.
 
+## Usage
+
+release-poll is best run in a Docker container and requires the following
+environment variables to be set:
+
+```
+REPOSITORY - GitHub repository to poll. Ex. 'hackedu/release-poll'
+SMTP_ADDRESS - Address to SMTP server. Ex. 'smtp.beeblebrox.com'
+SMTP_PORT - Port to use to connect to SMTP server. Ex. '587'
+SMTP_DOMAIN - Personal domain for email you'll send from. Ex. 'beeblebrox.com'
+SMTP_USERNAME - Username to SMTP server. Ex. 'zaphod'
+SMTP_PASSWORD - Password for SMTP server. Ex. 'Beeblebrox123'
+RECIPIENT_EMAILS - Comma-separated list of one-or-more emails to send
+                   notifications to. Ex. 'zaphod@beeblebrox.com',
+                   'zaphod@beeblebrox.com,arthur@dent.com'
+FROM_EMAIL - Identity to send emails from. Ex.
+             'Marvin the Paranoid <marvin@beeblebrox.com>'
+```
+
+Do note that only connecting to the SMTP server with STARTTLS is supported. The
+current polling interval is also every ten minutes.
+
 ## License
 
 The MIT License (MIT)
