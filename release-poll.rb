@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'mail'
 require 'octokit'
 require 'logger'
@@ -5,6 +7,9 @@ require 'logger'
 def most_recent_release(client)
   client.releases(ENV['REPOSITORY']).first
 end
+
+SECOND = 1
+MINUTE = SECOND * 60
 
 REPOSITORY = ENV['REPOSITORY']
 SMTP_ADDRESS = ENV['SMTP_ADDRESS']
@@ -30,6 +35,8 @@ logger = Logger.new(STDOUT)
 client = Octokit::Client.new
 last_release_id = most_recent_release(client).id-1
 
+logger.debug "Started polling for new releases from #{REPOSITORY}"
+
 loop do
   r = most_recent_release(client)
   if r.id > last_release_id
@@ -50,5 +57,5 @@ TEXT
     last_release_id = r.id
   end
 
-  sleep 10.minutes
+  sleep 10 * MINUTE
 end
